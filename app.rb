@@ -29,9 +29,24 @@ post '/visit' do
     out_f.close
 
     erb :message
-    
 end
 
 get '/contacts' do
 	erb :contacts
+end
+
+post '/contacts' do
+	@user_name 		= params[:user_name]
+    @phone_mail 	= params[:phone_mail]
+    @message_user 	= params[:message_user]
+
+    @title = 'Ваше обращение доставлено!'
+    @message = "Спасибо за обращение. Если оно требует ответа, мы постараемся связаться с Вами в бижайшее время."
+
+    out_f = File.open './public/contacts.txt', 'a'
+    out_f.write "\n\nUser: #{@user_name}, Call: #{@phone_mail},\n"
+    out_f.write "Message: #{@message_user}\n"
+    out_f.close
+
+    erb :message
 end
